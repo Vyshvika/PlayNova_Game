@@ -19,6 +19,13 @@ The game is designed to:
 
 ---
 
+## Demo
+
+The application itself acts as the demo.  
+Running `npm run dev` launches the interactive game environment, where users can explore themed worlds, observe agent progression, and experience reward-based gameplay mechanics.
+
+---
+
 ## Core Concepts Used
 
 - Agent-based decision making  
@@ -73,6 +80,7 @@ These metrics help evaluate **agent intelligence and learning progress**.
 
 ---
 
+
 ## Tech Stack
 
 - **Frontend:** React + TypeScript + Vite  
@@ -97,5 +105,7 @@ cd games
 npm install
 npm run dev
 
----
+
+
+
 
