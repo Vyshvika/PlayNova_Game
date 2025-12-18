@@ -104,6 +104,46 @@ git clone https://github.com/Vyshvika/PlayNova_Game.git
 cd games
 npm install
 npm run dev
+```
+## Demo
+
+The application itself acts as the demo.  
+Running `npm run dev` launches the interactive game environment, where users can explore themed worlds, observe agent progression, and experience reward-based gameplay mechanics.
+
+---
+
+## 📁 Project Structure
+
+```text
+games/
+├── public/
+│   └── sounds/              # Game sound effects
+├── src/
+│   ├── app/
+│   │   ├── components/      # UI components
+│   │   ├── config/          # World themes & game configs
+│   │   ├── hooks/           # Custom hooks (sound, controls, etc.)
+│   │   ├── types/           # TypeScript type definitions
+│   │   └── utils/           # Core game logic & helpers
+│   ├── assets/              # Static assets
+│   ├── styles/              # Tailwind & global styles
+│   ├── App.tsx              # Root application component
+│   └── main.tsx             # App entry point
+├── index.html               # HTML entry
+├── package.json             # Dependencies & scripts
+├── tailwind.config.ts       # Tailwind configuration
+├── vite.config.ts           # Vite configuration
+└── README.md                # Project documentation
+```
+---
+## Team 
+-  Team name  : TaskX
+-  Team members : Vyshvika , Archusma , Lohitha
+---
+##Data Handling & Privacy
+Large datasets are excluded due to size and confidentiality constraints.
+The focus of this project is on game mechanics, agent behavior, and system design, ensuring reproducibility without exposing sensitive data.
+
 
 
 
