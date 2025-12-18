@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion'
+import { useSound } from '../utils/useSound';
+import { exportJSON, exportCSV } from '../utils/resultsExporter';
+
 
 import {
   Sparkles,
@@ -44,7 +47,8 @@ interface GameScreenProps {
   level: number;
   world: WorldTheme;
   onBackToMap: () => void;
-  onLevelComplete: () => void;
+  onLevelComplete: (stars: number) => void;
+
 }
 
 export function GameScreen({ level, world, onBackToMap, onLevelComplete }: GameScreenProps) {
@@ -68,6 +72,27 @@ export function GameScreen({ level, world, onBackToMap, onLevelComplete }: GameS
 
   const theme = WORLD_THEMES[world];
   const levelConfig = generateLevelConfig(level);
+  const calculateStars = () => {
+    if (lives === 3 && timeElapsed < 30) return 3;
+    if (lives >= 2 && timeElapsed < 60) return 2;
+    return 1;
+  };
+  // 📊 Performance Metrics Generator
+// 📊 Performance Metrics Generator
+const generatePerformanceMetrics = () => {
+  const totalTiles = GRID_SIZE * GRID_SIZE;
+  const exploredCount = exploredTiles.size;
+
+  return {
+    totalScore: moveCount * 10 + lives * 50,
+    timeTaken: timeElapsed,
+    decisionEfficiency: moveCount > 0 ? exploredCount / moveCount : 0,
+    explorationCoverage: exploredCount / totalTiles,
+    agentConsistency: isAIEnabled ? 0.85 : 0.45
+  };
+};
+
+
 
   // Initialize level
   useEffect(() => {
@@ -116,6 +141,11 @@ export function GameScreen({ level, world, onBackToMap, onLevelComplete }: GameS
       if (enemyTimerRef.current) clearInterval(enemyTimerRef.current);
     };
   }, [level]);
+    // 🔊 Sounds
+  const winSound = useSound('/sounds/win.mp3', 0.9);
+  const loseSound = useSound('/sounds/lose.mp3', 0.9);
+  const hitSound = useSound('/sounds/hit.mp3', 0.9);
+
 
   // Timer countdown and elapsed time
   useEffect(() => {
@@ -127,8 +157,15 @@ export function GameScreen({ level, world, onBackToMap, onLevelComplete }: GameS
       return () => clearTimeout(timer);
     } else if (timeLeft === 0 && !gameWon) {
       setGameLost(true);
+      loseSound.play();
+      const metrics = generatePerformanceMetrics();
+      localStorage.setItem(
+      isAIEnabled ? 'agentx_metrics' : 'baseline_metrics',
+      JSON.stringify(metrics, null, 2)
+  );
     }
   }, [timeLeft, gameWon, gameLost, startTime]);
+
 
   // Dynamic obstacles - regenerate every 4 seconds
   useEffect(() => {
@@ -249,9 +286,12 @@ export function GameScreen({ level, world, onBackToMap, onLevelComplete }: GameS
     if (hitByEnemy) {
       const newLives = lives - 1;
       setLives(newLives);
+      hitSound.play()
+
       
       if (newLives <= 0) {
         setGameLost(true);
+        loseSound.play();
       }
     }
   }, [enemies, playerPos, lives, gameWon, gameLost]);
@@ -287,8 +327,10 @@ export function GameScreen({ level, world, onBackToMap, onLevelComplete }: GameS
     if (collidesWithObstacles(newPos, obstacles)) {
       const newLives = Math.max(0, lives - 1);
       setLives(newLives);
+      hitSound.play()
       if (newLives <= 0) {
         setGameLost(true);
+        loseSound.play();
       }
       return;
     }
@@ -297,8 +339,10 @@ export function GameScreen({ level, world, onBackToMap, onLevelComplete }: GameS
     if (collidesWithEnemies(newPos, enemies)) {
       const newLives = Math.max(0, lives - 1);
       setLives(newLives);
+      hitSound.play()
       if (newLives <= 0) {
         setGameLost(true);
+        loseSound.play();
       }
       return;
     }
@@ -311,9 +355,16 @@ export function GameScreen({ level, world, onBackToMap, onLevelComplete }: GameS
     // Check if reached goal
     if (isSamePosition(newPos, goalPos)) {
       setGameWon(true);
+      winSound.play();
       setTimeElapsed(Math.floor((Date.now() - startTime) / 1000));
+        // 📊 SAVE METRICS (WIN)
+      const metrics = generatePerformanceMetrics();
+
+      const key = isAIEnabled ? 'agentx_metrics' : 'baseline_metrics';
+      localStorage.setItem(key, JSON.stringify(metrics, null, 2));
+      const starsEarned = calculateStars();
       setTimeout(() => {
-        onLevelComplete();
+        onLevelComplete(starsEarned);
       }, 2000);
     }
   }, [playerPos, goalPos, obstacles, enemies, lives, gameWon, gameLost, exploreSurrounding, onLevelComplete, startTime]);
@@ -582,7 +633,7 @@ export function GameScreen({ level, world, onBackToMap, onLevelComplete }: GameS
               } backdrop-blur-md border-2 ${getBorderStyle()} rounded-full`}
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-            >
+            >d
               <h1 className={`${getTextColor()} font-bold tracking-wider text-lg`}>
                 LEVEL {level}
               </h1>

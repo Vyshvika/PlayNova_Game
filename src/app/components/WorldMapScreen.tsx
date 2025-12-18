@@ -172,14 +172,14 @@ export function WorldMapScreen({
                 : 'bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent'
             }`}
           >
-            PlayNova World
+            PATHORIA
           </motion.h1>
           <p className={`text-sm md:text-base ${
             currentWorld === 'candy' ? 'text-pink-300/70' :
             currentWorld === 'cyber' ? 'text-green-300/70' :
             'text-cyan-300/70'
           }`}>
-            Choose your adventure
+            Think. Move. Learn.
           </p>
         </motion.div>
 
