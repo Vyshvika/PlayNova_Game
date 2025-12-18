@@ -140,7 +140,8 @@ games/
 -  Team name  : TaskX
 -  Team members : Vyshvika , Archusma , Lohitha
 ---
-##Data Handling & Privacy
+## Data Handling & Privacy
+
 Large datasets are excluded due to size and confidentiality constraints.
 The focus of this project is on game mechanics, agent behavior, and system design, ensuring reproducibility without exposing sensitive data.
 
