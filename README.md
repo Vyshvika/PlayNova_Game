@@ -1,14 +1,16 @@
-# PlayNova_Game  
+# Pathoria
 ### An Agent-Based Intelligent Game for Learning, Strategy & Exploration
 
-PlayNova_Game is a **gamified, AI-driven interactive environment** designed to demonstrate intelligent agent behavior through exploration, decision-making, and adaptive learning.  
+## Problem Statement: PS2 – Gamified Learning Environment for AgentX
+
+Pathoria is a **gamified, AI-driven interactive environment** designed to demonstrate intelligent agent behavior through exploration, decision-making, and adaptive learning.  
 The project blends **game mechanics with AI concepts**, making it both engaging and technically strong — ideal for hackathons and AI-focused showcases.
 
 ---
 
 ## Project Overview
 
-PlayNova_Game simulates a dynamic game world where **AgentX**, an intelligent agent, navigates environments, makes strategic choices, and improves performance based on rewards and outcomes.
+Pathoria simulates a dynamic game world where **AgentX**, an intelligent agent, navigates environments, makes strategic choices, and improves performance based on rewards and outcomes.
 
 The game is designed to:
 - Encourage **learning through gameplay**
@@ -17,7 +19,7 @@ The game is designed to:
 
 ---
 
-##  Core Concepts Used
+## Core Concepts Used
 
 - Agent-based decision making  
 - Reward-driven learning mechanics  
@@ -29,16 +31,16 @@ The game is designed to:
 
 ## Game Mechanics
 
-- **Player & Agent Interaction**:  
+- **Player & Agent Interaction**  
   The player and AgentX coexist in the same environment, influencing outcomes.
 
-- **Exploration Paths**:  
+- **Exploration Paths**  
   Multiple paths and choices affect rewards and performance.
 
-- **Actions & Decisions**:  
-  AgentX can take actions such as exploring, reacting, assisting, or acting independently.
+- **Actions & Decisions**  
+  AgentX can explore, react, assist, or act independently.
 
-- **Scoring System**:  
+- **Scoring System**  
   Points are awarded based on:
   - Efficient decisions  
   - Exploration success  
@@ -52,10 +54,10 @@ The game is designed to:
 |------------|--------------|
 | Optimal decision | High positive reward |
 | Neutral action | Small reward |
-| Risky/inefficient action | Penalty |
+| Risky / inefficient action | Penalty |
 | Goal completion | Bonus score |
 
-This encourages AgentX to **learn better strategies over time**.
+This reward shaping enables **progressive agent improvement**, which is central to PS2.
 
 ---
 
@@ -73,21 +75,27 @@ These metrics help evaluate **agent intelligence and learning progress**.
 
 ## Tech Stack
 
-- **Language:** Python / JavaScript *(based on implementation)*  
-- **Game Logic:** Custom-designed mechanics  
-- **AI Concepts:** Agent behavior, rewards, decision logic  
+- **Frontend:** React + TypeScript + Vite  
+- **Styling:** Tailwind CSS  
+- **Game Logic:** Config-driven mechanics  
+- **Audio:** Sound-based feedback system  
 - **Version Control:** Git & GitHub  
 
 ---
 
-## 📁Project Structure
+## How to Run Locally
 
-```text
-PlayNova_Game/
-│
-├── frontend/        # UI / visual components
-├── backend/         # Game logic & agent behavior
-├── assets/          # Images, sounds, resources
-├── models/          # Agent / AI logic
-├── utils/           # Helper functions
-└── README.md
+### Prerequisites
+- Node.js >= 18
+- npm
+
+### Steps
+
+```bash
+git clone https://github.com/Vyshvika/PlayNova_Game.git
+cd games
+npm install
+npm run dev
+
+---
+
